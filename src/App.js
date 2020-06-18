@@ -6,6 +6,21 @@ const App = () => {
   const anecdotes = useSelector(state => state)
   const dispatch = useDispatch()
 
+  const compare = (a, b) => {
+    const anecdoteA = a.votes
+    const anecdoteB = b.votes
+
+    let comparison = 0
+    if (anecdoteA < anecdoteB){
+      comparison = 1
+    } else if (anecdoteA > anecdoteB){
+      comparison = -1
+    }
+    return comparison
+  }
+
+  const anecdotesSortedByVotes = anecdotes.sort(compare)
+
   const addAnecdote = (event) => {
     event.preventDefault()
     const content = event.target.anecdote.value
@@ -20,7 +35,7 @@ const App = () => {
   return (
     <div>
       <h2>Anecdotes</h2>
-      {anecdotes.map(anecdote =>
+      {anecdotesSortedByVotes.map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
