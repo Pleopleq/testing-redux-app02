@@ -3,16 +3,29 @@ const initialState = {
 }
 
 const notificationReduce = (state = initialState, action) => {
-    if(action.type === 'NOTIFICATION'){
-        return {...state, message: state.message.concat(action.data.message)}
+    switch (action.type) {
+    case 'NOTIFICATION': {
+        return {...state, message: action.data.message}
     }
-return state
+    case 'CLEAR': {
+        return {...state, message: action.data.message}
+    }
+    default: 
+        return state
+    }
 }
 
 export const setNewNotification = (message) => ({
     type: 'NOTIFICATION',
     data: {
         message
+    }
+})
+
+export const clearNotification = () => ({
+    type: 'CLEAR',
+    data: {
+        message: ''
     }
 })
 
